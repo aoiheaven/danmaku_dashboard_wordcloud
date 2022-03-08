@@ -8,6 +8,7 @@ Using a dictionary of word frequency.
 """
 
 # import multidict as multidict
+from base64 import encode
 from datetime import datetime
 # import multiprocessing as mtp
 from multiprocessing import cpu_count
@@ -116,10 +117,10 @@ def gen_wordcloud_one_video(bv, meme_img, l_stopwords):
     text = open(danmaku_txt, encoding='utf-8')
     text = text.read()
     # makeImage(getFrequencyDictForText(text, stop_word), Path('./material/zz_color.png'))
-    makeImage(text, VUP_meme_img, l_stopwords)
-    if not Path(f'./{author}_archive').is_dir():
-        Path(f'./{author}_archive').mkdir(parents=True, exist_ok=True)
-    plt.savefig(f'./{author}_archive/{author}-{bv}-{title}.png')
+    wordcloud_png = f'./{author}_archive/{author}-{bv}-{title}.png'
+    if not Path(wordcloud_png, encoding='utf-8').is_file():
+        makeImage(text, VUP_meme_img, l_stopwords)
+        plt.savefig(f'./{author}_archive/{author}-{bv}-{title}.png')
 
     return title
 
@@ -200,7 +201,7 @@ def prepare_input():
     # bv = 'BV1ju411f7PG'
     l_common_stopwords = f'哈 哈哈 哈哈哈 哈哈哈哈 晚安 晚上 晚上好 拜拜 早上好'.split()
 
-    UP_NAME = '红晓音'
+    UP_NAME = '红晓音Akane'
     UP_UID = '899804'
     record_sid = '336578'
     meme_img = Path('./material/hxy_color3.png')
@@ -214,6 +215,9 @@ def prepare_input():
         for pure_word in f_stop_word_common.readlines():
             l_stopwords.append(pure_word.strip())
 
+    if not Path(f'./{UP_NAME}_archive').is_dir():
+        Path(f'./{UP_NAME}_archive').mkdir(parents=True, exist_ok=True)
+    
     # UP_NAME = '只只'
     # UP_UID = '495707763'
     # record_sid = '483701'

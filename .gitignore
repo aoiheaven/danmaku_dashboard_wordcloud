@@ -1,2 +1,4 @@
 texture
 *_archive
+*.png
+*_archive/*.png
